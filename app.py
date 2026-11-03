@@ -61,15 +61,16 @@ if st.button("🚀 Run AI Team", use_container_width=True):
                 st.write(
                     result.get("final_report", "No final report available.")
                 )
-            st.subheader("✨ Improved Final Report")
-            with st.container(border=True):
-              st.write(
-                    result.get("revised_report", "No revised report available.")
-                 )
             st.subheader("🔍 Reviewer Feedback")
             with st.container(border=True):
                 st.write(
                     result.get("review", "No review available.")
+                )
+
+            st.subheader("✨ Improved Final Report")
+            with st.container(border=True):
+               st.write(
+                   result.get("revised_report", "No revised report available.")
                 )
 
         except Exception as error:
