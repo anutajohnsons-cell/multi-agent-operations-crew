@@ -18,7 +18,8 @@ class State(TypedDict):
 llm = ChatOllama(
     model="llama3.2",
     temperature=0,
-    num_predict=350
+    num_predict=350,
+    keep_alive="30m"
 )
 def timed_invoke(agent_name: str, prompt: str):
     start_time = time.perf_counter()
@@ -36,28 +37,16 @@ def timed_invoke(agent_name: str, prompt: str):
         raise
 
 # 3. Supervisor Agent
+# 3. Supervisor Agent
 def supervisor_agent(state: State):
-    print("\nSupervisor working...")
 
-    response = timed_invoke(
-        "Supervisor",
-        f"""You are supervising a multi-agent AI team.
+    print("\nSupervisor coordinating workflow...")
 
-User request:
-{state['user_request']}
+    # The workflow is already predefined.
+    # No LLM call is required for routing.
 
-Briefly identify what the team should focus on.
-All three agents must run in this order:
-researcher, analyst, writer.
+    print("Supervisor plan: Research -> Analysis -> Writing")
 
-Reply with one short sentence describing the team's focus.
-"""
-    )
-
-    print(f"Supervisor plan: {response.content.strip()}")
-
-    # Always begin with research so every later agent
-    # receives the information it needs.
     return {"next_agent": "researcher"}
 
 # 4. Route from Supervisor
